@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.transaction;
 
+import javax.ejb.EJBContext;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
@@ -28,8 +29,6 @@ import javax.transaction.RollbackException;
 import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 
-import org.jboss.seam.persistence.util.EJBContextUtils;
-import org.jboss.seam.persistence.util.NamingUtils;
 import org.jboss.seam.solder.bean.defaultbean.DefaultBean;
 
 /**
@@ -129,7 +128,7 @@ public class DefaultSeamTransaction implements SeamTransaction {
     }
 
     protected SeamTransaction createCMTTransaction() throws NamingException {
-        return new CMTTransaction(EJBContextUtils.getEJBContext(), synchronizations);
+        return new CMTTransaction(getEJBContext(), synchronizations);
     }
 
     protected SeamTransaction createUTTransaction() throws NamingException {
@@ -137,7 +136,7 @@ public class DefaultSeamTransaction implements SeamTransaction {
     }
 
     protected javax.transaction.UserTransaction getUserTransaction() throws NamingException {
-        InitialContext context = NamingUtils.getInitialContext();
+        InitialContext context = new InitialContext();
         try {
             return (javax.transaction.UserTransaction) context.lookup("java:comp/UserTransaction");
         } catch (NameNotFoundException nnfe) {
@@ -151,4 +150,23 @@ public class DefaultSeamTransaction implements SeamTransaction {
             }
         }
     }
+    
+    public static String ejbContextName = "java:comp.ejb3/EJBContext";
+    public static final String STANDARD_EJB_CONTEXT_NAME = "java:comp/EJBContext";
+
+    public static EJBContext getEJBContext() throws NamingException {
+        try {
+            return (EJBContext) new InitialContext().lookup(ejbContextName);
+        } catch (NameNotFoundException nnfe) {
+            return (EJBContext) new InitialContext().lookup(STANDARD_EJB_CONTEXT_NAME);
+        }
+    }
+
+    protected static String getEjbContextName() {
+        return ejbContextName;
+    }
+
+    protected static void setEjbContextName(String ejbContextName) {
+        DefaultSeamTransaction.ejbContextName = ejbContextName;
+    }    
 }
