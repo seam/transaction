@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>seam-transaction-impl</artifactId>
+    <artifactId>seam-transaction</artifactId>
     <packaging>jar</packaging>
 
     <name>Seam Transaction Implementation</name>
