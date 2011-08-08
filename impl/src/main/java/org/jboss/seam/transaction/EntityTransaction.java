@@ -17,7 +17,6 @@
 package org.jboss.seam.transaction;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.persistence.DefaultPersistenceProvider;
 import org.jboss.seam.solder.core.Veto;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -47,9 +46,6 @@ public class EntityTransaction extends AbstractUserTransaction {
 
     @Inject
     private EntityManager entityManager;
-
-    @Inject
-    private DefaultPersistenceProvider persistenceProvider;
 
     @Inject
     public void init(Synchronizations sync) {
@@ -129,11 +125,8 @@ public class EntityTransaction extends AbstractUserTransaction {
             log.debug("registering synchronization: " + sync);
         }
         // try to register the synchronization directly with the
-        // persistence provider, but if this fails, just hold
-        // on to it myself
-        if (!persistenceProvider.registerSynchronization(sync, entityManager)) {
-            getSynchronizations().registerSynchronization(sync);
-        }
+        // persistence provider
+        getSynchronizations().registerSynchronization(sync);
     }
 
     @Override
