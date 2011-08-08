@@ -32,7 +32,7 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.persistence.util.EjbApi;
+import org.jboss.seam.transaction.util.EjbApi;
 import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
 
 /**

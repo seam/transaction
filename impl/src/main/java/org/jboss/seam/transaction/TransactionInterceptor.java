@@ -17,7 +17,7 @@
 package org.jboss.seam.transaction;
 
 import org.jboss.seam.persistence.util.BeanManagerUtils;
-import org.jboss.seam.persistence.util.EjbApi;
+import org.jboss.seam.transaction.util.EjbApi;
 import org.jboss.seam.transaction.literal.DefaultTransactionLiteral;
 
 import javax.enterprise.inject.spi.BeanManager;
