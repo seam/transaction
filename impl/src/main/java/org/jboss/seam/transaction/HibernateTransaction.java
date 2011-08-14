@@ -29,7 +29,7 @@ import javax.transaction.SystemException;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.jboss.logging.Logger;
+import org.jboss.seam.solder.logging.Logger;
 import org.jboss.seam.solder.core.Veto;
 
 /**

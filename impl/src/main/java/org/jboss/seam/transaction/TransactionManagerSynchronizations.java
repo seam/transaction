@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.transaction;
 
-import org.jboss.logging.Logger;
+import org.jboss.seam.solder.logging.Logger;
 import org.jboss.seam.solder.bean.defaultbean.DefaultBean;
 
 import javax.enterprise.context.ApplicationScoped;
