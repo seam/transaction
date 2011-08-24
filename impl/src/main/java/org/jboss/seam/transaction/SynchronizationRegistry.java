@@ -22,7 +22,7 @@ import java.util.List;
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
 
-import org.jboss.seam.solder.logging.Logger;
+import org.jboss.seam.logging.Logger;
 
 /**
  * A list of Synchronizations to be invoked before and after transaction completion. This class is used when we can't

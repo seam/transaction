@@ -18,7 +18,7 @@ package org.jboss.seam.transaction;
 
 import javax.transaction.Status;
 
-import org.jboss.seam.solder.logging.Logger;
+import org.jboss.seam.logging.Logger;
 import org.jboss.seam.transaction.util.ExceptionUtil;
 
 /**

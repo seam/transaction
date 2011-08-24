@@ -14,10 +14,6 @@ Contents of distribution
 
    API Docs and reference guide.
   
- examples/
-
-   Seam Transaction Examples
-  
  lib/
 
    Seam Transaction dependencies
