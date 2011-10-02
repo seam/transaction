@@ -16,8 +16,8 @@
  */
 package org.jboss.seam.transaction;
 
-import org.jboss.seam.logging.Logger;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.core.Veto;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

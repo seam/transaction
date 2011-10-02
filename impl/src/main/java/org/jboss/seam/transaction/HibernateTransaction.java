@@ -29,8 +29,8 @@ import javax.transaction.SystemException;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.jboss.seam.logging.Logger;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.core.Veto;
 
 /**
  * Support for the Hibernate transaction API.

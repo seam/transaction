@@ -26,7 +26,7 @@
     </modules>
 
     <properties>
-        <seam.version>3.1.0.Beta2</seam.version>
+        <seam.version>3.1.0.Beta3</seam.version>
         <emma.version>2.0.5312</emma.version>
     </properties>
 
@@ -41,10 +41,6 @@
                 <type>pom</type>
             </dependency>
 
-            <!--
-               Need to use dependencyManagement to override
-               org.jboss.seam:seam-bom for submodules
-            -->
             <dependency>
                 <groupId>org.jboss.seam.transaction</groupId>
                 <artifactId>seam-transaction-api</artifactId>
@@ -58,7 +54,6 @@
             </dependency>
 
         </dependencies>
-
     </dependencyManagement>
 
     <profiles>
@@ -74,45 +69,7 @@
                 <module>docs</module>
             </modules>
         </profile>
-        <profile>
-            <id>jboss-public-repository</id>
-            <activation>
-                <property>
-                    <name>jboss-public-repository</name>
-                    <value>!false</value>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>jboss-public-repository-group</id>
-                    <name>JBoss Public Maven Repository Group</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>jboss-public-repository-group</id>
-                    <name>JBoss Public Maven Repository Group</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                        <updatePolicy>never</updatePolicy>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
+
         <profile>
             <!-- all tests using managed containers -->
             <id>all</id>
@@ -120,6 +77,7 @@
                 <module>tests/jbossas-hibernate</module>
             </modules>
         </profile>
+
         <profile>
             <!-- jboss remote profile-->
             <id>jbossas-remote-6</id>
@@ -127,6 +85,7 @@
                 <module>tests/jbossas-hibernate</module>
             </modules>
         </profile>
+
         <profile>
             <!-- jboss managed profile-->
             <id>jbossas-managed-6</id>
@@ -134,6 +93,7 @@
                 <module>tests/jbossas-hibernate</module>
             </modules>
         </profile>
+
         <profile>
             <id>code-coverage</id>
             <dependencies>

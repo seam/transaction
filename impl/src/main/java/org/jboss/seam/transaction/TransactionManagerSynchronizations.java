@@ -16,8 +16,8 @@
  */
 package org.jboss.seam.transaction;
 
-import org.jboss.seam.logging.Logger;
-import org.jboss.seam.solder.bean.defaultbean.DefaultBean;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.bean.defaultbean.DefaultBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.naming.InitialContext;
