@@ -29,7 +29,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 
-import org.jboss.seam.solder.bean.defaultbean.DefaultBean;
+import org.jboss.solder.bean.defaultbean.DefaultBean;
 
 /**
  * Supports injection of a Seam UserTransaction object that wraps the current

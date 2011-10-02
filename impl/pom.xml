@@ -35,13 +35,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam.solder</groupId>
-            <artifactId>seam-solder-api</artifactId>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-api</artifactId>
         </dependency>
 
         <dependency>
-           <groupId>org.jboss.seam.solder</groupId>
-           <artifactId>seam-solder</artifactId>
+           <groupId>org.jboss.solder</groupId>
+           <artifactId>solder-impl</artifactId>
            <scope>compile</scope>
         </dependency>
 

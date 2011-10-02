@@ -19,7 +19,7 @@ package org.jboss.seam.transaction;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Synchronization;
 
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 
 /**
  * This implementation does not have access to the JTA TransactionManager, so it is not fully aware of container managed

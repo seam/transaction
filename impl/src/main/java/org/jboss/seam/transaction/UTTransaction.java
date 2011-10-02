@@ -23,8 +23,8 @@ import javax.transaction.RollbackException;
 import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 
-import org.jboss.seam.logging.Logger;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.core.Veto;
 
 /**
  * Wraps JTA transaction management in a Seam UserTransaction interface.

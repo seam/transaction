@@ -31,9 +31,9 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
-import org.jboss.seam.logging.Logger;
+import org.jboss.solder.logging.Logger;
 import org.jboss.seam.transaction.util.EjbApi;
-import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
+import org.jboss.solder.reflection.annotated.AnnotatedTypeBuilder;
 
 /**
  * Extension than provides a {@link SeamTransaction} if no other UserTransaction

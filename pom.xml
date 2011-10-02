@@ -26,7 +26,7 @@
     </modules>
 
     <properties>
-        <seam.version>3.1.0.Beta2</seam.version>
+        <seam.version>3.1.0.Beta3</seam.version>
         <emma.version>2.0.5312</emma.version>
     </properties>
 
@@ -41,10 +41,6 @@
                 <type>pom</type>
             </dependency>
 
-            <!--
-               Need to use dependencyManagement to override
-               org.jboss.seam:seam-bom for submodules
-            -->
             <dependency>
                 <groupId>org.jboss.seam.transaction</groupId>
                 <artifactId>seam-transaction-api</artifactId>
@@ -58,7 +54,6 @@
             </dependency>
 
         </dependencies>
-
     </dependencyManagement>
 
     <profiles>

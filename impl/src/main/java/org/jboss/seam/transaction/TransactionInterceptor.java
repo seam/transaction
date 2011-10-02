@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.transaction;
 
-import org.jboss.seam.solder.beanManager.BeanManagerUtils;
+import org.jboss.solder.beanManager.BeanManagerUtils;
 import org.jboss.seam.transaction.util.EjbApi;
 import org.jboss.seam.transaction.literal.DefaultTransactionLiteral;
 
