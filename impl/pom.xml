@@ -112,6 +112,7 @@
     </profiles>
 
     <build>
+        <finalName>seam-transaction</finalName>
         <plugins>
             <!-- tests run in seperate modules -->
             <plugin>
