@@ -44,7 +44,8 @@ public class JBossASTestUtils {
         WebArchive war = ShrinkWrap.createDomain().getArchiveFactory().create(WebArchive.class, "test.war");
         war.addAsLibraries(
                 DependencyResolvers.use(MavenDependencyResolver.class)
-                .loadReposFromPom("pom.xml")
+                .configureFrom("../settings.xml")
+                .loadMetadataFromPom("pom.xml")
                 .artifact("org.jboss.solder:solder-impl")
                 .resolveAs(JavaArchive.class)
                 );
