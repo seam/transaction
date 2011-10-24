@@ -39,6 +39,7 @@
     </dependencies>
 
     <build>
+        <finalName>seam-transaction-api</finalName>
         <plugins>
             <!-- no test phase for API module -->
             <plugin>
