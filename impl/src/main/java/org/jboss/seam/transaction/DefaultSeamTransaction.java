@@ -28,6 +28,7 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 import org.jboss.solder.bean.defaultbean.DefaultBean;
 
@@ -145,12 +146,15 @@ public class DefaultSeamTransaction implements SeamTransaction {
                 javax.transaction.UserTransaction ut = (javax.transaction.UserTransaction) context.lookup("UserTransaction");
                 ut.getStatus(); // for glassfish, which can return an unusable UT
                 return ut;
+            } catch (NamingException ne) {
+                // Try the other JBoss location
+                return (UserTransaction) context.lookup("java:jboss/UserTransaction");
             } catch (Exception e) {
                 throw nnfe;
             }
         }
     }
-    
+
     public static String ejbContextName = "java:comp.ejb3/EJBContext";
     public static final String STANDARD_EJB_CONTEXT_NAME = "java:comp/EJBContext";
 
@@ -168,5 +172,5 @@ public class DefaultSeamTransaction implements SeamTransaction {
 
     protected static void setEjbContextName(String ejbContextName) {
         DefaultSeamTransaction.ejbContextName = ejbContextName;
-    }    
+    }
 }

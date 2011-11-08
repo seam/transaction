@@ -33,5 +33,4 @@ public class UserTransactionTest extends UserTransactionTestBase {
         war.addAsWebInfResource("META-INF/persistence.xml", "classes/META-INF/persistence.xml");
         return war;
     }
-
 }
