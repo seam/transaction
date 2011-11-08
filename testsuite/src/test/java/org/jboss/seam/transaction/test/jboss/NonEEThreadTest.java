@@ -18,6 +18,7 @@
 package org.jboss.seam.transaction.test.jboss;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.transaction.HeuristicMixedException;
@@ -61,7 +62,7 @@ public class NonEEThreadTest {
 
         try {
             worker.start();
-            startLatch.await();
+            startLatch.await(5L, TimeUnit.SECONDS);
             assertThat(testThread.isTxObtained(), is(true));
             assertThat(testThread.isTxStarted(), is(true));
             assertThat(testThread.isTxEnded(), is(true));
@@ -100,8 +101,9 @@ public class NonEEThreadTest {
                 throw new RuntimeException(e);
             } catch (NotSupportedException e) {
                 throw new RuntimeException(e);
+            } finally {
+                this.begin.countDown();
             }
-            this.begin.countDown();
         }
 
         void startTransaction() throws SystemException, NotSupportedException {
