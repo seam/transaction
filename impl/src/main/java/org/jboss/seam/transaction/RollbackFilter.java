@@ -49,7 +49,8 @@ public class RollbackFilter implements Filter
     {
         try
         {
-            if (userTransaction.getStatus() == Status.STATUS_ACTIVE)
+            if (userTransaction.getStatus() != Status.STATUS_UNKNOWN || 
+                userTransaction.getStatus() != Status.STATUS_NO_TRANSACTION)
             {
                 userTransaction.rollback();
             }
