@@ -140,17 +140,17 @@ public class DefaultSeamTransaction implements SeamTransaction {
         InitialContext context = new InitialContext();
         try {
             return (javax.transaction.UserTransaction) context.lookup("java:comp/UserTransaction");
-        } catch (NameNotFoundException nnfe) {
+        } catch (NamingException ne) {
             try {
                 // Embedded JBoss has no java:comp/UserTransaction
                 javax.transaction.UserTransaction ut = (javax.transaction.UserTransaction) context.lookup("UserTransaction");
                 ut.getStatus(); // for glassfish, which can return an unusable UT
                 return ut;
-            } catch (NamingException ne) {
+            } catch (NamingException ne2) {
                 // Try the other JBoss location
                 return (UserTransaction) context.lookup("java:jboss/UserTransaction");
             } catch (Exception e) {
-                throw nnfe;
+                throw ne;
             }
         }
     }
