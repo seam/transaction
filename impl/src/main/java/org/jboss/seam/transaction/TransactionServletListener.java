@@ -33,6 +33,7 @@ import org.jboss.solder.exception.control.ExceptionToCatch;
 import org.jboss.solder.logging.Logger;
 
 /**
+ * Listener to begin / commit / rollback a transaction around each request.
  * @author <a href="http://community.jboss.org/people/LightGuard">Jason Porter</a>
  */
 @WebListener
@@ -43,10 +44,10 @@ public class TransactionServletListener implements ServletRequestListener {
     @Inject
     @DefaultTransaction
     private SeamTransaction tx;
-    //private UserTransaction tx;
 
     @Inject
     Event<ExceptionToCatch> txException;
+
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
         try {
