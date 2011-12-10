@@ -52,8 +52,8 @@
            	</note>
             <para>
                 If you are not in an EE environment you may need to configure some
-                things with seam-xml. You may need the following entries in your
-                beans.xml file:
+                things with Solder. You may need the following entries in your
+                <literal>beans.xml</literal> file:
             </para>
             <programlisting role="XML"><![CDATA[<beans xmlns="http://java.sun.com/xml/ns/javaee"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -83,13 +83,10 @@
 
             <para>
                 Seam will attempt to use JTA synchronizations if possible. If not then you need to install the
-                <code>SeSynchronzations</code>
-                bean to allow seam to handle synchronizations manually.
+                <code>SeSynchronzations</code> bean to allow seam to handle synchronizations manually.
                 Synchronizations allow Seam to respond to transaction events such as
-                <literal>beforeCompletion()</literal>
-                and<literal>afterCompletion()</literal>, and are needed
-                for the proper operation of the
-                <link linkend="persistence.seam-managed-persistence-contexts">Seam Managed Persistence Context</link>.
+                <literal>beforeCompletion()</literal> and <literal>afterCompletion()</literal>, and are needed
+                for the proper operation of the Seam Managed Persistence Context.
             </para>
 
             <programlisting role="XML"><![CDATA[<t:EntityTransaction>
@@ -97,46 +94,35 @@
 </t:EntityTransaction>]]></programlisting>
 
             <para>
-                By default seam will attempt to look up
-                <literal>java:comp/UserTransaction</literal>
-                from JNDI
-                (or alternatively retrieve it from the
-                <code>EJBContext</code>
-                if a container managed transaction
-                is active). Installing
-                <code>EntityTransaction</code>
-                tells seam to use the JPA
-                <code>EntityTransaction</code>
-                instead. To use this you must have a
-                <link linkend="persistence.seam-managed-persistence-contexts">Seam Managed Persistence Context</link>
+                By default Seam will attempt to look up <literal>java:comp/UserTransaction</literal>
+                from JNDI (or alternatively retrieve it from the <code>EJBContext</code>
+                if a container managed transaction is active). Installing <code>EntityTransaction</code>
+                tells Seam to use the JPA <code>EntityTransaction</code> instead. To use this you must have a
+                Seam Managed Persistence Context (see the Seam Persistence documentation for details)
                 installed with qualifier<code>@Default</code>.
             </para>
+            
             <para>
                 If your entity manager is installed with a different qualifier, then you need to use the following
-                configuration (this assumes that
-                <literal>my</literal>
+                configuration (this assumes that <literal>my</literal>
                 has been bound to the namespace that contains
-                the appropriate qualifier, see the Seam Config XML documentation for more details):
+                the appropriate qualifier, see the Solder documentation for more details):
             </para>
+            
             <programlisting role="XML"><![CDATA[<t:EntityTransaction>
    <s:modifies />
    <t:entityManager>
       <my:SomeQualifier/>
    </t:entityManager>
 </t:EntityTransaction>]]></programlisting>
+
             <note>
                 <para>
-                    You should avoid
-                    <code>EntityTransaction</code>
-                    if you have more than one persistence unit in your
-                    application. Seam does not support installing multiple
-                    <code>EntityTransaction</code>
-                    beans, and
-                    the
-                    <code>EntityTransaction</code>
-                    interface does not support two phase commit, so unless you are
-                    careful you may have data consistency issues. If you need multiple persistence units in your
-                    application then we highly recommend using an EE 6 compatible server, such as JBoss 6.
+                    You should avoid <code>EntityTransaction</code> if you have more than one persistence unit in your
+                    application. Seam does not support installing multiple <code>EntityTransaction</code>
+                    beans, and the <code>EntityTransaction</code> interface does not support two phase commit, 
+                    so unless you are careful you may have data consistency issues. If you need multiple persistence 
+                    units in your application then we highly recommend using an EE 6 compatible server, such as JBoss AS7.
                 </para>
             </note>
 
@@ -148,8 +134,7 @@
             <para>
                 Seam adds declarative transaction support to managed beans. Seam re-uses the EJB
                 <code>@TransactionAttribute</code>
-                for this purpose, however it also provides
-                an alternative
+                for this purpose, however it also provides an alternative
                 <code>@Transactional</code>
                 annotation for environments where
                 the EJB API's are not available. An alternative to<code>@ApplicationException</code>,
