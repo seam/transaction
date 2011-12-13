@@ -39,6 +39,11 @@ import org.jboss.solder.logging.Logger;
 @WebListener
 public class TransactionServletListener implements ServletRequestListener {
 
+    /**
+     * context-param to disable the listener.
+     */
+    public static String DISABLE_LISTENER_PARAM = "org.jboss.seam.transaction.disableListener";
+
     private final Logger log = Logger.getLogger(TransactionServletListener.class);
 
     @Inject
@@ -50,18 +55,25 @@ public class TransactionServletListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
+        final String listenerDisabledParam = sre.getServletContext().getInitParameter(DISABLE_LISTENER_PARAM);
+        if (listenerDisabledParam != null && "true".equals(listenerDisabledParam.trim().toLowerCase())) {
+            return;
+        }
+
         try {
             switch (this.tx.getStatus()) {
                 case Status.STATUS_ACTIVE:
-                    this.tx.commit();
+                    this.log.debugf("Committing a transaction for request %s", sre.getServletRequest());
+                    tx.commit();
                     break;
-                case Status.STATUS_COMMITTED:
-                case Status.STATUS_COMMITTING:
                 case Status.STATUS_MARKED_ROLLBACK:
                 case Status.STATUS_PREPARED:
                 case Status.STATUS_PREPARING:
-                    this.tx.rollback();
+                    this.log.debugf("Rolling back a transaction for request %s", sre.getServletRequest());
+                    tx.rollback();
                     break;
+                case Status.STATUS_COMMITTED:
+                case Status.STATUS_COMMITTING:
                 case Status.STATUS_ROLLING_BACK:
                 case Status.STATUS_UNKNOWN:
                 case Status.STATUS_ROLLEDBACK:
@@ -85,10 +97,16 @@ public class TransactionServletListener implements ServletRequestListener {
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
+        final String listenerDisabledParam = sre.getServletContext().getInitParameter(DISABLE_LISTENER_PARAM);
+        if (listenerDisabledParam != null && "true".equals(listenerDisabledParam.trim().toLowerCase())) {
+            return;
+        }
+
         try {
             if (this.tx.getStatus() == Status.STATUS_ACTIVE) {
                 this.log.warn("Transaction was already started before the listener");
             } else {
+                this.log.debugf("Beginning transaction for request %s", sre.getServletRequest());
                 this.tx.begin();
             }
         } catch (SystemException se) {

@@ -224,7 +224,24 @@
             </programlisting>
         </section>
 
-    </section>
-    
+        <section id="transaction.requestListener">
+          <title>ServletRequestListener</title>
+
+          <para>
+            Seam Transaction has a built in <literal>ServletRequestListener</literal> which automatically begins and
+            commits (or rolls back if the transaction is set to rollback) a transaction for each request! This should
+            end having to manually specify transactions, or wonder if a transaction is inplace.
+          </para>
+
+          <tip>
+            <para>
+              Should the need arise for disabling this listener, a context param in web.xml named 
+              <literal>org.jboss.seam.transaction.disableListener</literal> set to <literal>true</literal> will
+              disable the listener.
+            </para>
+          </tip>
+        </section>
+
+    </section> 
 
 </chapter>
