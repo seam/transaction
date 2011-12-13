@@ -20,6 +20,7 @@ import java.io.File;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -48,21 +49,31 @@ public class JBossASTestUtils {
                 .artifact("org.jboss.solder:solder-impl")
                 .resolveAs(JavaArchive.class)
                 );
-        
+
         war.addAsLibraries(
                 ShrinkWrap.create(
                         ZipImporter.class, "seam-transaction-api.jar")
                             .importFrom(new File("../api/target/seam-transaction-api.jar"))
                             .as(JavaArchive.class),
-                            
+
                 ShrinkWrap.create(
                         ZipImporter.class, "seam-transaction.jar")
                             .importFrom(new File("../impl/target/seam-transaction.jar"))
                             .as(JavaArchive.class));
-        
+
         if (includeEmptyBeansXml) {
             war.addAsWebInfResource(new ByteArrayAsset(new byte[0]), "beans.xml");
         }
+
+        // Disabling the ServletRequestListener
+        war.addAsWebInfResource(new StringAsset("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<web-app xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://java.sun.com/xml/ns/javaee\"\n" +
+                "         xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd\" version=\"3.0\">\n" +
+                "    <context-param>\n" +
+                "        <param-name>org.jboss.seam.transaction.disableListener</param-name>\n" +
+                "        <param-value>true</param-value>\n" +
+                "    </context-param>\n" +
+                "</web-app>"), "web.xml");
         return war;
     }
 
