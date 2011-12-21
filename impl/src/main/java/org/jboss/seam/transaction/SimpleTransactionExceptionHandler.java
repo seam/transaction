@@ -62,5 +62,6 @@ public class SimpleTransactionExceptionHandler {
         } catch (SystemException e) {
             log.warn("Could not set transaction to rollback", e);
         }
+        t.rethrow();
     }
 }
