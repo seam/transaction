@@ -58,14 +58,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-search</artifactId>
-            <version>3.2.1.Final</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <profiles>
