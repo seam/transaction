@@ -30,6 +30,7 @@ import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.jboss.seam.transaction.util.UserTransactionUtil;
 import org.jboss.solder.bean.defaultbean.DefaultBean;
 
 /**
@@ -43,6 +44,9 @@ import org.jboss.solder.bean.defaultbean.DefaultBean;
 public class DefaultSeamTransaction implements SeamTransaction {
     @Inject
     private Synchronizations synchronizations;
+    
+    @Inject
+    private UserTransactionUtil userTransactionUtil;
 
     public void enlist(EntityManager entityManager) throws SystemException {
         getSeamTransaction().enlist(entityManager);
@@ -137,22 +141,7 @@ public class DefaultSeamTransaction implements SeamTransaction {
     }
 
     protected javax.transaction.UserTransaction getUserTransaction() throws NamingException {
-        InitialContext context = new InitialContext();
-        try {
-            return (javax.transaction.UserTransaction) context.lookup("java:comp/UserTransaction");
-        } catch (NamingException ne) {
-            try {
-                // Embedded JBoss has no java:comp/UserTransaction
-                javax.transaction.UserTransaction ut = (javax.transaction.UserTransaction) context.lookup("UserTransaction");
-                ut.getStatus(); // for glassfish, which can return an unusable UT
-                return ut;
-            } catch (NamingException ne2) {
-                // Try the other JBoss location
-                return (UserTransaction) context.lookup("java:jboss/UserTransaction");
-            } catch (Exception e) {
-                throw ne;
-            }
-        }
+        return userTransactionUtil.getUserTransaction();
     }
 
     public static String ejbContextName = "java:comp.ejb3/EJBContext";
